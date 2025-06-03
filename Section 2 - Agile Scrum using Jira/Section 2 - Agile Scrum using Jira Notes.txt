@@ -1,0 +1,257 @@
+Jira and Scrum practical implementation course Section 2
+
+Content
+
+2. Agile scrum using Jira Part 1
+3. End to end Scrum lifecycle using Jira Tool - Part 1
+4. End to end Scrum lifecycle using Jira Tool - Part 2
+5. Create Story Maps using Jira Tool
+6. Create Product Roadmap using Jira Tool
+7. Craete Dashboard and Reports Using Jira
+
+
+
+
+
+2. Agile scrum using Jira Part 1
+================================
+
+Register and Login to Atlassian - https://home.atlassian.com
+
+Open the menu and open in new tab
+	- Jira				- creating a Jira Project
+	- Confluence			- creating a Confluence space
+
+Confluence
+----------
+Create new space and name it Test space
+
+Create a page that will work for our purposes: Create/page
+We can create a retrospective and link it to a sprint - separate demo.
+
+
+Jira
+----
+Create New Project / Software Development / Scrum / Use template / Select a team-managed project
+
+On 'Add project details' page set
+	- Name: Test Project
+	- Key: (will automatically appear) TP
+	- click Next
+
+On 'Bring the team with you' page invite team members with emails.
+	- click Invite and continue or Skip
+
+On 'Connect your work' page we can connect repositories in Bitbucket and Project pages in Confluence
+	- Add Bitbucket repository - Add new project named Test project
+	- Add Confluence project space - Test space
+
+
+
+
+
+
+
+
+3. End to end Scrum lifecycle using Jira Tool - Part 1
+======================================================
+
+Main points:
+- Product Backlog
+- Create an Epic
+- Create a story
+- Create a Task
+- Create a version
+- Create and complete sprint
+- Sprint backlog
+- Daily Stand Up View
+- How do we move stroies to completipn
+
+
+Create first Backlog:
+---------------------
+Open the project in Jira and go to Backlog
+	- go on the bottom of the TP Sprint 1 
+	- choose create story intem and set text - As Project Manager I want to generate report to present the status of project
+
+
+Create an Epic and story
+------------------------
+We have to enable Epic visualize and create an Epic with name Development Process.
+	- Epic - That is bigger story that can be brake down on smaller stories.
+
+We then can create story, issue or other item in this Epic.
+
+We can open a story in differen tab if we right click on the key (TP-1) of the story and choose open in new tab.
+ - Set a Description - express the main idea and attach documents and/or screenshot if available
+ - We can Link specific work items from the menu '+Add'/ Child work item, Linked work item, attachments, web links, etc.
+
+It is recommended to input more information in the descriptions as possible. Connected with:
+	- Users, clients
+	- Requirements, Priority
+	- Team suggestions, side prospective
+	- Developmen tips
+
+
+Create a Task and versions (Releases)
+-------------------------------------
+A release is a plan (schedule) of the work that should be done. When we create release we can link tasks, stories to specific release.
+
+Add tab 'Releases' if not visualized on the menu header
+	- click '+' click on 'Releases', click om 'Add to navigation' button
+	- position the tab after 'Code' and before 'Deployment' tab.
+	
+In the 'Release' tab we can create 2 new release
+	- click on Craete version
+	- set start and end date
+	- set description
+	- click save
+
+Attach version to specific story as:
+	- open the story in new tab: right click on the sorty's key/open in new tab
+	- In details field we can see Fix version field that we can set the specific release
+
+
+Project Workflow
+----------------
+The Workflow of the project can be set on the 'Board' tab. It is Kanban board and we can set different stages of the workflow. Fo example ToDo, In Progress, In Review, Done.
+
+
+
+4. End to end Scrum lifecycle using Jira Tool - Part 2
+======================================================
+
+We can connect mutiple stories to specific Release and that way we create a release timing plan for these stories.
+
+
+
+Create and manage a sprint
+--------------------------
+
+On 'Backlog' page we have section 'TP Sprint 1'. On the right side we have button 'Create sprint'. We can create multiple sprints and drag and drop stories, issues or bugs into specific sprint.
+
+With edit sprint button we can set the sprint duration from 1 to 4 weeks and set goals description.
+
+We can move items (stories, issues, bugs etc.) from epic backlog backlog to sprint backlog or we can just create new story in it.
+
+Once the sprint is defined with all items inside, we can start it.
+
+When the sprint is started, all items in it are moved to the board (kanban) page in TODO column. On this page we can assign fallow the development of each story/issue. It is recommended thet we set acceptance criteria in the description for every story/issue.
+	- write comments
+	- attach documents and images
+	- add links
+
+We can create subtasks for every story - '+Add/Child work item' or '+Add/Linked work item'. We cam also connect Cofluence pages or Apps.
+
+We can manage different subtasks (Child work items) the same stages we treat the story - ToDo, In Progress, In Review, Done
+Once all subtasks are Done we can mark the Story as Done as well.
+
+Once all stories are done we can complete the sprint. We can create a retrospective for the sprint using Confluence. We can connect space or create page for the specific sprint.
+
+In the retrospective page we can set:
+	- Date is automatically captured
+	- What the team will start doing
+	- What the team will stop doing
+	- What the team will continue doing
+	- Action items and assigments to team members
+
+We can see the Sprint retrospective page linked in the Project/Page tab. 
+
+In the Project/List page we can see all the intems and their status.
+
+
+
+5. Create Story Maps using Jira Tool
+====================================
+We can look over the 'Story Map example pic' picture for example
+
+On the top there are Epics. Below them there are Stories and below every story there are subtaks for each story.
+
+For creation of Story map we can use Jira App 'Easy Agile'. We can Link the App in Porject/Apps. Search for 'easy agile' and set 'Easy Agile TeamRhythm - User Story Map & Retrospectives' and start the free trail. For teams up to 10 people the app is free.
+
+Once started in Project/User Story Map we can see all stories and intems and manage their timelines. We also have Retrospective page for each sprint.
+
+We can create Epics and stories for each Epic and subtasks for each story easily on one page. Below every epic we can create stories and tasks for each story. 
+
+
+
+6. Create Product Roadmap using Jira Tool
+=========================================
+This App 'Easy Agile TeamRhythm - User Story Map & Retrospectives' allow us easily to manage (drag and drop) items for every sprint. We can create and start sprints, manage releases.
+
+In the 'Swimlanes' menu we can choose to view Releases on the board woth 'Version Swimlanes' filter.
+
+
+Product Roadmap
+---------------
+
+In Project/Timeline we can see the 'Roadmap' page - Gantt diagram. In the bottom right we can select period view as Today, Weeks, Months and Quarter. We can move, extend or shortening items on the board.
+
+We can Add Epics. We can extend every epic and create stories for each epic.
+
+We can use 'Status category' filter to visualize stories in 'In progress' or 'ToDo' or 'Done' status.
+
+We can connect dependancies like hover epic and drag and drop bottom right icon to another epic.
+
+
+
+7. Craete Dashboard and Reports Using Jira
+==========================================
+
+How we create artifacts like
+	- Release Sprint Burndown Chart
+	- Create Burnup Chart
+	- Create CFD - comulative flow diagram
+	- Velocity Chart
+
+
+Creating Reports
+----------------
+
+In Project/Reports tab we can select the type of report we want to create. We will go over 6 report
+
+Burnup report
+-------------
+We can set to visualize story points, work items count or time for specific sprint. We will se twork items for this example.
+
+Bellow the chart we can see listed all work items for this sprint.
+
+If we set the chart to represent the story points, below the chart we will see every work item with its assignes story points - completed/scope.
+
+
+Sprint burndown report
+----------------------
+Very similar to the burnup report but with details of the work items included in specific sprint and their status.
+
+
+Velocity report
+---------------
+It represents work items in different status in bar diagram report.
+
+
+Cumulative flow diagram
+-----------------------
+This chart represent all work items with their status and time scope. Helps to identify the botlle necks in the work progress. 
+This report is customizable for the purpose we want to use it - represent different groups of work items - ToDo, InProgress, InReview, Done.
+
+
+Deployment Frequency Report
+---------------------------
+This report represent the  work done by date in time. What work items are shipped in specific time scope and what was the plan.
+
+
+Cycle time report
+-----------------
+This reprot represent the deployment frequency in time. 
+
+
+Dashboard
+=========
+This is the Summary tab. It represent the work items and its status id different diagrams. In 'Filter' we can set different views and create sections in the summary tab for the team or stakeholders.
+
+
+
+
+
+
+

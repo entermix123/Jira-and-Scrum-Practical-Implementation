@@ -1,0 +1,59 @@
+Jira and Scrum practical implementation course Section 1
+
+What is Scrum
+=============
+
+Definition and details in 2017-Scrum-Guide-US.pdf file in the resources.
+
+
+The Product Owner communicates with the Executives, Stakeholders, Customers, Team and Users and creates inputs - ranked list of required features, stories in the 'Product Backlog'. 
+
+The 'Product Backlog' is living artifact. It is changed dynamically by the Product Owner - adding stories and features required.
+
+
+The development of the product is executed in sprints. Sprint is 1-4 week timeframe that specific features are developed. Sprint planning meeting is created in the beginning of the sprint to specify the features that will be developed. Sprint backlog is created and feature is braked to tasks every task is being approached by the developers. Task must be small enough to be developed in 2-4 weeks. Every task then is braked to smaller tasks from every developer.
+
+
+Daily standups are meetings organized and administrated by the scrum master daily in which each member of the team shares what he has done in the last 24 hours and what will be done in the next 24 hours, shares any problems or blockers and if support is needed.
+
+We can have multiple releases in one sprint. When feature is ready and covers the acceptance criteria it can be released in the same sprint. The finished features are added to 'Done' section.
+
+At the end of the sprint a Sprint Retrospective is performed. This is a activity that concludes what is done, what was the stoppers and solutions, good and bad practices and feedback from the customers.
+
+
+SCRUM Overview
+--------------
+
+Roles:				Events:					Artifacts:
+- Product Owner			- Sprint planning			- Product backlog
+- Scrum Master			- Sprint review				- Sprint backlog
+- Team				- Sprint retrospective			- Burndown chart
+				- Daily scrum meeting
+
+
+
+Product Owner - representative of the customer (voice of the customer)
+
+Scrum Master - Protect the team from any external disturbances (unrelated meetings, participation in other project's work, etc.) during the sprint, assuring the team achieve their sprint goals (proces reinforcer). Scrum Master also make sure that the team members are fully aware of their tasks, their contributions and follow the goals of the sprint and the project. Also make sure that the progress is properly represented. 
+
+Team - team of people with different skillset, responsible for braking down features to simple tasks and developing them to a code.
+
+Sprint planning - Taking stories from the Product Backlog, brake down them to tasks and defining a goals for the sprint.
+
+Sprint review - demo to customer can be done during the sprint when some of the features are ready. Presented are only end to end working features (cover the acceptance criteria by the customer - done feature). Good practice is to do a few review sessions for specific feature to get the early feedback.
+
+Sprint retrospective - dome once at the end of the sprint - Recommended is that all members of the team are present. Assure full transparency, progress representation, problems and solutions etc. Trying to use different techniques for retrospective.
+
+Daily scrum meetings - status update and synchronization meetings. A few minutes are given to every member of the team to present their progress, their planned activities and their problems/blockers and need of support if needed. 
+
+Product backlog - List of requirements - a living document/artifact. Everything that have to be develop in the product sits in the backlog and is regularly prioritized by the product owner and the team (product owner is with priority - knows what delivers more value). The team elevate risks of features dependencies and confirm the correct feature prioritization. This sessions are highly collaborative the team members are required to ask questions to understand the right context of the story.
+
+Sprint backlog - Tasks from braking down the stories from the product backlog and the defined goals for the sprint.
+
+Burndown charts - the stories are represented as story point and the burndown chart show how the story points are burned down from the start to the end of the sprint - like status of the progress. This chart give us information if the team is moving with compliance of the plan.
+
+
+
+
+
+
