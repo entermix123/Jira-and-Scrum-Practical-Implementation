@@ -247,7 +247,7 @@ This reprot represent the deployment frequency in time.
 
 Dashboard
 =========
-This is the Summary tab. It represent the work items and its status id different diagrams. In 'Filter' we can set different views and create sections in the summary tab for the team or stakeholders.
+This is the Filters/Dashboards tab. It represent the work items and its status id different diagrams. We can add gadgets nd create dashboards for the team or stakeholders. We can share them in communications or as a documents.
 
 
 
