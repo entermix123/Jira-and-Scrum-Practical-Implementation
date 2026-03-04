@@ -1,0 +1,484 @@
+Content
+=======
+Video - https://www.youtube.com/watch?v=4BibQ69MD8c
+1. What it is?
+5. Features and Use Cases
+6. Architecture
+7. Comparison with other platforms
+
+
+
+1. What it is?
+==============
+Azure DevOps is a DevOps platform.
+- Software as a service (SaaS) platform from Microsoft
+- Platform to implement all your DevOps processes
+	old names: Team Foundation Server, Visual Studio Team Server
+- Extended from existing services and tools
+
+
+What is DevOps platform?
+------------------------
+What Azure DevOps is exactly?
+- Combination of Concepts, Tools and Practices and anything that makes developing & releasing applications Fast, Automated and High-Quality.
+
+
+5 steps of software development lifecycle:
+	1. Azure Boards - Planning is the first step 
+		- what needs to be developed (features, bugfixes)
+		- Why - business value
+		- Workflow
+			- Agile
+			- Scrum
+	It is like framework platform as Jira. Contains and allow us to use different features with AGILE, SCRUM or other software development methodologies.
+
+	2. Azure Repos - Source Control Management (Version control system - VCS)
+		- hosting the code
+		- similar to GitLab, GitHub, Bitbucket etc.
+		- allows Git Workflow - actions and features as reviews, Pull Requests, Branch Policies
+			- commits, pull requests or branches can be linked to work items
+
+	3. Azure Pipeline
+		- written in YAML (azure-pipelines.yml with the required steps)
+		- Automate testing, packaging (CI) and deployment (CD) of version of the code
+
+
+Continuous Integration
+======================
+
+Example azure-pipeline.yaml file from .Net application
+-------------------------------------------------------------
+pool:					// agent that will execute the job
+  vmImage: 'ubuntu-22.04'		// specify the OS for the agent
+
+variables:
+  buildConfiguration: 'Release'
+
+
+steps:
+
+	- script: dotnet test
+	  displayName: Run unit tests
+
+	- script: dotnet build --configuration $(buildConfiguration)
+	  displayName: Build application
+
+	- script: docker build -t my-image:v1.0 .
+	  displayName: Build image
+
+	- script: docker run my-image:v1.0 .
+	  displayName: Push image
+
+-------------------------------------------------------------
+		
+		- We also can use azure tasks 
+			- Ready for use steps like sequences for different actions and configurations 
+
+Example of ready step for archive
+-------------------------------------------------------------
+...
+
+	- script: docker run my-image:v1.0 .
+	  displayName: Push image
+
+	- task: ArchiveFiles@2
+	  inputs:
+	    rootFolderOrFile: '$(Build.BinariesDirectory)'
+	    includeRootFolder: true
+	    arciveType: 'zip'
+   	    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+	    replaceExistingArchive: true
+
+-------------------------------------------------------------
+
+		- It allow us to create different languages and technologies scripts and use them in our pipeline
+			- actions with languages (.NET - restore, test, build etc., Docker - build, run, push etc.)
+
+
+	4. Pipeline Syntax
+		- Use Cases for multiple jobs in a pipelne
+			- executing tests for different OS - Linux/Windows/iOS	
+			- deploy application on different OS
+
+
+Example for Job syntax in azure-pipeline.yaml file
+-------------------------------------------------------------
+pool:					// agent that will execute the job
+  vmImage: 'ubuntu-22.04'		// specify the OS for the agent
+
+variables:
+  buildConfiguration: 'Release'
+
+jobs:					// job section
+
+- job: Test and Build			// first job
+
+  steps:				// steps of the first job
+
+  - script: dotnet test
+    displayName: Run unit tests
+
+  - script: dotnet build --configuration $(buildConfiguration)
+  displayName: Build application
+
+  - script: docker build -t my-image:v1.0 .
+  displayName: Build image
+
+  - script: docker run my-image:v1.0 .
+  displayName: Push image
+-------------------------------------------------------------
+
+
+In case of multiple jobs we need to specify the OS
+-------------------------------------------------------------
+trigger:
+- master
+
+variables:
+  buildConfiguration: 'Release'
+
+jobs: 					// job section
+
+- job: Run on Window			// first job
+
+  pool:					// agent that will execute the job
+    vmImage: 'windows-latest'		// specify the OS for the agent
+
+  steps:				// steps of the first job
+
+  - script: dotnet test
+    displayName: Run unit tests
+
+
+- job: Run on Linux			// second job
+
+  pool:
+    vmImage: 'ubuntu-latest'		// specify the OS
+
+  steps:				// steps of the first job
+
+  - script: dotnet test
+    displayName: Run unit tests
+
+-------------------------------------------------------------
+
+	- We can have parallel jobs like in GitHub Actions
+
+
+	5. Azure Artifacts
+		- stores configuration file ( maven - Java, nuget - .NET, npm - JavaScript and pip - Python packages )
+			- more used are docker image as artifacts - ignore language differences
+			- connect docker registry or other container registry
+
+
+
+How it help in implementing the DevOps processes?
+
+Azure Continuous Delivery/Deployment (CD)
+=========================================
+	Git --> Test --> Build image --> Docker Repository --> Deploy
+		- 2 stages for it
+			- Build stage
+			- Deploy stage
+
+Example for separate jobs of CD
+-------------------------------------------------------------
+jobs:
+
+- job: Build and test
+
+  steps:
+
+  - task: DotNetCoreCLI@2
+
+      inputs:
+
+	command: 'test'
+
+  - task: DotNetCoreCLI@2
+
+      inputs:
+
+	command: 'build'
+
+  - task: Docker@2
+
+      inputs:
+
+	command: 'buildAndPush'
+	Dockerfile: '**/Dckerfile'age:1.0 .
+
+      displayName: Push image
+-------------------------------------------------------------
+
+
+Deploy job
+-------------------------------------------------------------
+jobs:
+
+- job: Build and test
+
+  steps:
+
+  - task: DotNetCoreCLI@2
+
+      inputs:
+
+	appName: myapp
+
+	package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+-------------------------------------------------------------
+
+Example for Stages in the file
+-------------------------------------------------------------
+stages:
+
+- stage: Build					// stage 1
+
+  jobs: Test and Build
+
+  - steps:
+
+    - task: DotNetCoreCLI@2
+      ...
+
+    - task: Docker@2
+      ...
+
+
+- stage: Deploy					// stage 2
+
+  jobs:
+
+  - deployment: Deploy to development		// specialized custom job 'deployment'  do not checkout the code
+
+    steps:
+
+    - task: AzureWebApp@1
+      ...
+-------------------------------------------------------------
+
+
+Deployment stages
+	- deploy to Development Env
+	- deploy to Testing Env
+	- deploy to Production
+
+Example for Stages  of deployment for all Envs
+-------------------------------------------------------------
+stages:
+
+- stage: Build					// stage 1
+
+  jobs: Test and Build
+
+  - steps:
+
+    - task: DotNetCoreCLI@2
+      ...
+
+    - task: Docker@2
+      ...
+
+
+- stage: Deploy	Dev				// stage 2
+
+  jobs:
+
+  - job: Deploy to development		// deploy to DEV
+
+    steps:
+
+    - task: AzureWebApp@1
+      ...
+
+- stage: Deploy	Test				// stage 3
+
+  jobs:
+
+  - job: Deploy to development		// deploy to Test
+
+    steps:
+
+    - task: AzureWebApp@1
+      ...
+
+- stage: Deploy	Prod				// stage 4
+
+  jobs:
+
+  - job: Deploy to development		// deploy to Prod
+
+    steps:
+
+    - task: AzureWebApp@1
+      ...
+-------------------------------------------------------------
+
+
+
+
+We can use Templates in Azure Pipelines
+---------------------------------------
+
+Example template for specific Env
+-------------------------------------------------------------
+parameters:
+  env: Dev
+
+jobs:
+- job: Deploy
+  environment: ${{ parameters.env }}
+  steps:
+    - task: AzureWebApp@1
+      inputs:
+	appName: myapp
+	package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+ 	...
+-------------------------------------------------------------
+
+
+Using the template in azure-pipeline.yml file
+-------------------------------------------------------------
+stages:
+
+- stage: Build					// stage 1
+
+  jobs: Test and Build
+
+  - steps:
+
+    - task: DotNetCoreCLI@2
+      ...
+
+    - task: Docker@2
+      ...
+
+
+- stage: Deploy	Dev				// stage 2
+
+  jobs:
+
+  - template: /Deploy/Jobs/deploy.yml		// set the correct template
+
+    parameters:
+	
+	env: Dev				// set the correct environment
+
+
+- stage: Deploy	Test				// stage 3
+
+  jobs:
+
+  - template: /Deploy/Jobs/deploy.yml		// set the correct template
+
+    parameters:
+	
+	env: Test				// set the correct environment
+
+
+- stage: Deploy	Prod				// stage 4
+
+  jobs:
+		
+  - template: /Deploy/Jobs/deploy.yml		// set the correct template
+
+    parameters:
+	
+	env: Prod				// set the correct environment
+-------------------------------------------------------------
+
+We can have template fot job, stage or step - any of the used levels. We can have templates in the templates and craete a hierarchy.
+
+We can separate our templates in different repository and then reference them in the azure-pipeline.yaml file.
+
+
+Pipelines/Environments
+----------------------
+They help us to track on what environment on what time and what version we deployed an app.
+- give us list of the deployments of the specific environment 
+- we can link tickets to specific deployment in the environment
+
+
+Pipelines/Releases
+------------------
+Jenkins and othe plaforms have only one pipeline and one UI for the whole process. 
+This feature allow us to use separate pipeline for each release. We can use external platofrm artifacts like Jenkins and GitHub Actions but we can build pipeline nly with UI (no YAML file). We can chain and trigger them with the build stage.
+
+Pros
+- Have one CI/CD pipeline
+- Benefits of scripting whole pipeline
+- using external artifacts
+
+
+Pipeline/Tests
+--------------
+Execute tests before deployment is very important
+	- Functional Tests
+	- Integration Tests
+	- Load Tests
+	...
+
+This feature allow us to:
+- A browser-based test management tool
+- Create unified, central view of our test cases
+- Manual Tests (Plans)
+	- specifying the test steps - when a feature is released a tester can go true this plan and test the feature
+	- expect outcomes
+- Automated Tests 
+	- Executed by Azure Pipelines
+	- Test Reports can be viewed in Azure Test Plans
+- We can overview all test
+- We can view and run tests directly from the kanban board
+
+
+
+Azure DevOps Architecture
+=========================
+
+General DevOps Process
+----------------------
+Running Test...
+	Building images...
+		Deploy to Dev...
+			...
+
+
+Azure DevOps Architecture
+-------------------------
+
+Azure DevOps Services								Microsoft Azure
+boards, repos, pipelines, tests etc.
+- running on cloud machines
+
+All features subtasks are ran on separate cloud machines - agents 		Microsoft hosted agents
+- we can use microsoft hosted agents
+- we can configure and use our own agents and connect them to Azure DevOps platform
+- we can have a mixture of both
+
+Azure DevOps have Free Tier
+
+
+Project Settings/Service Connections
+====================================
+- Easy authentication and authorization handling trie UI
+- Auto generated creadentials with external services and do not use the actual creadentials. More secure and we don't have to actualize credentials on timespan.
+
+
+
+Comparison with pther platform
+==============================
+Jenins and Argo CD are only DevOps process oriented
+Jira is more project oriented and we have to connect multiple external services and applications
+
+Azure DevOps is more overall complete for the whole software development process and easy to manage. Already implemented and easy to manage external services and agents. Better traceability ( work items are easily linked to branches, pull requests, pipelines, deployments etc. ). Very similar features and usecases to GitLab platform.
+
+Azure DevOps and Microsoft Azure are two separate platform with different accounts that can be managed separately but they are still closely related and connected for various usecases.
+
+Azure DevOps can deploy not only on Miscrosoft Azure but also on another cloud providers like AWS.
+
+
+
+
+
+

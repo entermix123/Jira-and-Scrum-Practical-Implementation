@@ -1,0 +1,595 @@
+Content
+=======
+
+video - https://www.youtube.com/watch?v=gLJdrXPn0ns
+
+
+1. What is DevSecOps
+2. Main DevSecOps Concenpts
+3. DevSecOps Tools
+4. Hands-on experience
+
+
+
+Importance of security
+----------------------
+Security is important on all levels of SDLC
+- App
+- Runtime
+- Infrastructure
+
+When organization data is compromised or hacked, the price paid is way more great than the implementation of security resources and policies and reputation is also damaged.
+
+
+2 main challanges that the organizations fail to implement security
+
+	1. Focus on fast development of new features
+		- provides business value
+		- bring in customers
+		- brings in money
+
+	2. Application system becomes more complex
+		- Example of modern application
+			- Microservices
+			- Containers
+			- Kubernetes
+			- Cloud
+			- Multiple databases
+			- External services
+			- CD/CI pipeline
+		! Mnay Entrypoints
+		! Large Attack Surface
+
+Vulnerabilities on each layer
+-----------------------------
+	Pallication
+		- own code
+		- Third party code (external services)
+		Possible attacks methods
+			- SQL Injection
+			- Cross-Site Scripting
+			- Client to Server Request Forgery
+
+	Container Runtime dependancies vulnerabilities
+		Image Layer
+		Image Layer
+		Image Layer
+		OS base Image	- bug possibility
+
+	Kubernetes security vulnerabilities
+		Outside the cluster
+			API server publicly available?
+			Unneeded ports open?
+			Access Management to Cluster
+			Static long-term credentials or short-lived tokens?
+		Inside the cluster
+			Pod communication restricted?
+			Access to Conteol Plane processes?
+			Pod to Pod communication encryption?
+
+	Cloud Infrastructure
+		SHH into Worker Nodes directly?
+		Is VPC wide open?
+		
+	Badly managed access control
+		Permissions are not strict enough
+		Credentials are spread around the whole company
+		Static credentials on engineer's computer
+
+	CI/CD Pipeline
+		CI/CD is like an orchestrator, having access to many other systems
+		Does our CI/CD tool has too many permissions?
+		Will attacker get access to all creadentials?
+		What permissions do these credentials have?
+	
+
+
+Where we should include Sec in DevOps?
+--------------------------------------
+Usually Security check are made lately in the development or after the deployment (pentensting). This is not a good practice because force many changes not natively in the development process.
+
+Better practice is to integrate security practices in the development process from start to finish.
+	- Shared responsibility - everyone involved in the software development process is responsible for security
+		- Secure infrastructure
+		- Write secure application code
+
+
+Security Posture of your system
+-------------------------------
+
+How does DevSecOps work in practice? Like in DevOps - automation is the key!
+
+Automating security testing, vulnerability scanning, code analysis, complience checks, ...
+Levels:
+	- Data
+	- App
+	- Host
+	- Network
+	- Physical
+	- Policy & Procedures
+
+There are Automated test for Application Security, Automated tests for Configuration Security and Automated tests fot Cloud Security.
+
+
+Static Checks
+=-=-=-=-=-=-=
+Where these automated tests are executed in the pipeline?
+
+
+1. SAST (Static Application Security Testing) Tests
+---------------------------------------------------
+	- Validate our application code
+		- SQL Injection - no user input validators
+		- Weak or outdated encryption algorithms for user passwords?
+		- Cross-Site Scripting (XSS)?
+		- Client and Server Request Forgery (no identity certificate confiramtion - CA)?
+		- Path Traversal?
+
+
+2. Secret Scanning
+------------------
+	- Hard coded secrets leaved in the code
+		- API Keys
+		- Private Keys
+		- Passwords
+		- Tokens
+		- Authentication Files
+		- kubeconfig	(Kubernetes)
+		- id_rsa	(AWS)
+
+This tools are used as precommit hooks to restrict this secrets enter the repository. The commits are stopped and the developer is required to remove them before the commit is done.
+
+
+3. SCA (Software Composition Analysis) Tests
+--------------------------------------------
+	- 3rd party code can have vulnerabilities just like our own code.
+	- Check third-party and open-source libraries and frameworks (dependancies of our application) like npm, maven, pip, nuget and other package registries.
+	- Check for outdated versions for well known libraries and third-party license risks
+
+- Understand how it works in detail
+	- How and where it's documented
+	- Learn about CVE's
+- How it works in practice
+	- Integrate SCA in DevSecOps pipeline
+	- How to analyze the findings
+	- Import SCA Scan reports
+
+
+
+
+Live Checks
+=-=-=-=-=-=
+
+There are security issues that can only be detected when application is running
+
+
+DAST (Dynamic Application Securoty Testing) Tests
+-------------------------------------------------
+- Focuses on identifying vulnerabilities in a running application
+- No knoledge of the internal code or design of application
+	- SQL Injection
+	- Manipulating API URLs parameters to get data that you are not autherized to see
+- Sends various requests to the application and observe how the application responds, what data it returns and identify any potential weaknesses.
+
+
+Docker Image Scanning
+---------------------
+- Scan every image layer for known vulnerabilities
+Container Runtime level
+	- Usage of ROOT user?
+	- Usage of vulnarable OS package?
+	- Usage of bloaded image? (image with many tools that even we don't use - increasing attack surface & risk unnecessary)
+
+Some of the techniques are:
+	- False positives
+		- How to handle false positives
+		- Why and how to minimize false positives
+	- Vulnerability Management
+		- Visualize and analyse the scan results
+		- How to generate reports of each scanning tool
+		- Automatically upload findings with Python in CI/CD
+		- Analyze findings and remediate security issues
+		- CWE (Common Weakness Enumeration)
+			- Definition: CWE is a community-developed list of common software and hardware weaknesses that can lead to vulnerabilities. It categorizes types of flaws (e.g., buffer overflow, SQL injection) with unique identifiers.
+			- Purpose: Helps developers and security professionals understand, identify, and prevent weaknesses in software design and code.
+			- Example: CWE-79 (Cross-Site Scripting) describes a weakness where unvalidated input allows malicious scripts to run.
+			- Use in Vulnerability Management: Guides secure coding practices, risk assessment, and prioritization of mitigation efforts by focusing on root causes of vulnerabilities.
+
+		- CVE (Common Vulnerabilities and Exposures):
+			- Definition: CVE is a list of publicly disclosed cybersecurity vulnerabilities, each assigned a unique identifier (e.g., CVE-2023-12345). It describes specific instances of vulnerabilities in software or systems.
+		- Purpose: Provides a standardized way to identify, track, and share information about known vulnerabilities across tools and databases.
+		- Example: CVE-2021-44228 (Log4j vulnerability) refers to a specific flaw in the Log4j library allowing remote code execution.
+		Use in Vulnerability Management: Enables organizations to identify, prioritize, and patch specific vulnerabilities in their systems, often using CVE data in vulnerability scanners or patch management tools.
+
+	- Reference real world projects
+		- How it SHOULD work vs How it's done in practice
+		- How to balance the additional checks that increase the pipeline duration?
+		- When to run separate noghtly builds or full scans?
+
+
+
+Shifting Security Left
+======================
+Implement security check early. Before repository checks are started, pre-commit hooks are recommended. They give us fast feedback for potential security issues. The later in the release stage we discover security issue, the more expensive it is to fix it. Instead of reactively fixing/patching security issues in production, we proactively reducing the possibility of them on first place.
+
+Example of security automation tools - Progress/Chef - We can run online complience checks in any of our environments by demand to see how secure our system is. There are benchmarks profiles that will give us adequate assessment and report. Used in Kubernetes for analyze the master node and its configurations (cookbooks: terminal --> knife node show Kube-Master).
+
+
+
+DevSecOps Demo
+==============
+Used project - intentionally vulnerable - repo: adeyosemanputra/pygoat
+
+We will build a DevSecOps pipeline for that app with security checks on GitHub Actions
+
+Workflow templates
+------------------
+GitHub Actions/pylint/configure - this will generate a yaml file with steps for CI
+
+
+SAST Tests in pipeline
+----------------------
+
+Evaluate and choose the right tools we will use in the pipeline using some criteria
+	- adoption
+		- large comunity
+		- many resources/docs
+		- open source
+	- Complexity
+		- is it easy to use?
+		- Official Docker image available?
+
+
+We can use multiole tools for the same job to compare the results and assess their work.
+
+For this example we will use Bandit - Python SAST test tool
+
+Creting the file from scratch:
+.github/workflows/main.yml
+-----------------------------------------------
+name: CI
+
+on: [push]				// run always on push
+
+jobs:
+  sast_scan:				// SAST Tests using Bandit tool fro Python applications
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with: 
+	python-version: 3.8
+
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit
+      run: bandit -r .				// bandit -ll -ii -r . -f json -o bandit.json
+						// create report in file bandit.json with medium or higher confidence and severity
+		
+-----------------------------------------------
+- Commit changes
+
+
+SAST Results
+------------
+Job failed - mean that Bandit found security issues
+
+In the report we have sections with details. In the end of the report we have summary of the scan with the confidence and severity of the issues by count.
+
+We DO NOT want to present low severity issues! If we focus on low severity issues this will bring a lot of unnessecary work, distraction from real risks, block and slow down release pipeline without much value.
+
+We DO want our DevSecOps to focus only on high and medium severity issues! Fewer - managable, proofs usefulness of the tool introduced in the pipeline and focus on the most important findings.
+
+If the confidence of the finding is low means that the tool is not realy sure if the severity of the issue is correctly assessed. 
+
+We must tweak the tool for useful scanning finding - present the high and medium severity issues only and ignore low confidence and low severity issues.
+
+Configure Bandit
+----------------
+Bandit configuration options - https://bandit.readthedocs.io/en/latest/man/bandit.html#options
+
+
+How to configure Bandit to ignore all low confidence nad low severity issues - check the documentation of Bandit
+	- '-l' parameter - '-ll' set bandit to report only medium or higher level of severity
+	- '-i' parameter - '-ii' set bandit to report only medium or higher level of confidence 
+
+	After configuring bandit with the required confidence and severity levels, start the workflow again.
+		- Start with fixing high severity finding and then go to the medium severity findings
+
+How to configure Bandit to create a report in specific directory
+	- '-o' parameter - output file 
+	- '-f' parameter - specify output format
+
+The goal is to get this report file and upload it in Vulnerability Management Tool like DefectDojo and present detailed results, fix recommendations in nice UI.
+
+Then we want to create an artifact (the report) and upload it in the Vulnerability Management Tool - DefectDojo
+
+-----------------------------------------------
+name: CI
+
+on: [push]				// run always on push
+
+jobs:
+  sast_scan:				// SAST Tests using Bandit tool fro Python applications
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with: 
+	python-version: 3.8
+
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit
+      run: bandit -ll -ii -r . -f json -o bandit.json   // create report bandit.json with medium or higher confidence and severity
+
+    - name: Upload Artifact				// upload the report file 
+      uses: actions/upload-artifact@v3
+      if: always()					// always execute this step if any step before failed
+      with:
+	name: bandit-findings
+	path: bandit.json
+-----------------------------------------------
+
+Now when the workflow fail we will still have the report file bandit-findings in the logs
+
+
+
+Container Image Scanning
+------------------------
+Checking the Docker image for outdated images or operation system tools with security issues.
+
+Evaluate and choose the right tools we will use in the pipeline using some criteria
+	- adoption
+		- large comunity
+		- many resources/docs
+		- open source
+	- Complexity
+		- is it easy to use?
+		- Official Docker image available?
+
+
+We can use multiole tools for the same job to compare the results and assess their work.
+
+For this example we will use a Docker native tool called - Docker Scout
+Docker Scout is a set of software supply chain features integrated into Docker's user interfaces and CLI. Provides insights into the composition and security of the container images.
+
+We can set different job for build and upload the image into repository and then another job for pulling and scanning the image. For this example we will build nad test the image in the same job.
+
+The job for the SAST Tests and the job for the image scan will be executed on different machines and they will be independant and faster.
+
+We can use 2 docker scout command
+	1. docker scout quickview 
+		- display quick overview of an image
+		- give recommendations what to change to make our image more secure
+
+	2. docker scout cves
+		- analyze a software artifact for vulnerabilities
+		- display DVEs identified in a software artifact (
+			- give us complete overview of image vulnerabilities
+			- we can tweak it and configured (add flags) to receive specific severity level issues
+
+We will use GitHub Secrets to login into Docker to execute commands. 
+To create secret go to Project Settings/Secrets and variables/Actions/New repository secret
+1. Docker Username
+	Name: REPO_USER
+	Secret: Docker_ID
+2. Docker Password
+	Name: REPO_PWD
+	Secret: ********
+
+
+main.yml
+-----------------------------------------------
+name: CI
+
+on: [push]				// run always on push
+
+jobs:
+  sast_scan:				// SAST Tests using Bandit tool fro Python applications
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with: 
+	python-version: 3.8
+
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit
+      run: bandit -ll -ii -r . -f json -o bandit.json   // create report bandit.json with medium or higher confidence and severity
+
+    - name: Upload Artifact				// upload the report file
+      uses: actions/upload-artifact@v3
+      if: always()					// always execute this step if any step before failed
+      with:
+	name: bandit-findings
+	path: bandit.json
+
+  image_scan:						// set another job for scanning docker image
+    name: Build Image and Run Image Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set Up Docker
+      uses: docker-practice/actions-setup-docker@v1	// using actions is recommended
+      with:
+	docker_version: '20.10.7'			// check if latest
+
+    - name: Build Docker Image
+      uses: docker build -f Dockerfile -t myapp:latest .
+      
+    - name: Docker Scout Scan 		// download, install and run docker scout with mutiline command
+      run: |
+       curl -fsSLhttps://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+       sh install-scout.sh
+
+       echo ${{ secrets.REPO_PWD }} | docker login -u ${{ secrets.REPO_USER }}	--password-stdin
+
+       docker scout quickview
+       docker scout cves
+-----------------------------------------------
+
+Comit changes and wait for the workflow to finish.
+
+We can see the scan results in the logs of the workflow.
+- We can see summary of the docker scout quickview scan
+	- more general overview of the image scan
+
+- We can see summary of the docker scout cves scan
+	- more detailed overview of the image scan with severity levels
+	- summary of issues with low, medium, high and critical level of severity
+		- give us posible higher version of the dependancy that cover this vulnerability issue
+	- give us recommendations how to proceed and fix those issues 
+
+How to configure the results of the docker scout cves scan to present only critical and medium issues:
+	- we can use already configured actions from the github market. 
+		- this is recommended option because is the configuration is more abstract
+		- if we search for 'docker scout' we will find official one - 'Docker Scout' by Docker
+	- we will configure docker scout to present only critical and high severity issues 
+		Check Docker Scout documentation 
+			- https://github.com/docker/scout-action?tab=readme-ov-file#output
+			- https://github.com/docker/scout-action?tab=readme-ov-file#common-inputs-1
+			- https://github.com/docker/scout-action?tab=readme-ov-file#cves-inputs
+		Config:
+		      	only-severities: critical, high			// set severity filter
+      			sarif-file: scout-report.sarif			// specify report file
+			exit-code: true			// fail the job if there are critical or high severity issues
+
+main.yml
+-----------------------------------------------
+name: CI
+
+on: [push]				// run always on push
+
+jobs:
+  sast_scan:				// SAST Tests using Bandit tool fro Python applications
+    name: Run Bandit Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with: 
+	python-version: 3.8
+
+    - name: Install Bandit
+      run: pip install bandit
+
+    - name: Run Bandit
+      run: bandit -ll -ii -r . -f json -o bandit.json   // create report bandit.json with medium or higher confidence and severity
+
+    - name: Upload Artifact				// upload the report file
+      uses: actions/upload-artifact@v3
+      if: always()					// always execute this step if any step before failed
+      with:
+	name: bandit-findings
+	path: bandit.json
+
+  image_scan:						// set another job for scanning docker image
+    name: Build Image and Run Image Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: action/checkout@v2
+
+    - name: Set Up Docker
+      uses: docker-practice/actions-setup-docker@v1	// using actions is recommended
+      with:
+	docker_version: '20.10.7'			// check if latest
+
+    - name: Build Docker Image
+      uses: docker build -f Dockerfile -t myapp:latest .
+
+   #- name: Docker Scout Scan 				// download, install and run docker scout with mutiline command
+   #  run: |
+   #   curl -fsSLhttps://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+   #   sh install-scout.sh
+
+   #   echo ${{ secrets.REPO_PWD }} | docker login -u ${{ secrets.REPO_USER }}	--password-stdin
+
+   #   docker scout quickview
+   #   docker scout cves
+      
+    - name: Docker Scout Scan 				// used ready configured action by docker 
+      uses: docker/scout-action@v1.0.9
+      with:						// login data
+	dockerhub-user: ${{ secrets.REPO_USER }}
+	dockerhub_password: ${{ secrets.REPO_PWD }}
+      command: quickview,cves				// execute multiple commands
+      only-severities: critical, high			// set severity filter
+      sarif-file: scout-report.sarif			// specify report file
+      exit-code: true			// fail the job if there are critical or high severity issues
+
+    - name: Upload Artifact				// upload the report file
+      uses: actions/upload-artifact@v3
+      if: always()					// always execute this step if any step before failed
+      with:
+	name: docker-scout-findings
+	path: scout-report.sarif
+-----------------------------------------------
+Commit the changes and wait for the workflow to finish
+
+In the workflow logs we can see list visualization for only critical and high vulnerability issues from docker scout.
+We can also download the report file and upload it in the Vulnerability Management Tool - DefectDojo
+
+
+Use Vulnerability Management Tools
+==================================
+This tools present the security posture of our application. There are different Vulnerability Management Tools but the recommended one is DefectDojo - open source.
+
+We can automate the upload of the report files from the GitHub Ation to the DefectDojo with Python script.
+Then we can separate the issues true different roles and their responsibilities.
+	- how DevSecOps is implemented in organizations?
+	- How are responsibilities divided across teams?
+	- How to involve other roles in the implementation process?
+	- How to avoid resistance?
+
+In the bootcamp linked is showed how to fix the different issues:
+	- SQL Injection
+	- XSS - Cross Site Scripting
+	- Client and Server Request Forgery
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

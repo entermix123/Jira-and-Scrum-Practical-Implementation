@@ -1,0 +1,478 @@
+Content
+=======
+
+Core fundamentals of Jira
+
+1. First steps in Jira
+2. Jira Menus, UI and basics
+3. Team-Managed Projects vs Company-Managed Projects
+4. Create a Team-managed Project
+5. Creating issues in Team-Managed Project
+6. Adding Our Team to a Team-Managed Project
+7. Customizing The Issue Types in Our Team-Managed Project
+8. Configuring the Agile Board
+9. Changin fron Kanban to Scrum with Features
+10. Timeline view in a Team-Managed Project
+11. Working with the Calendar 
+12. Overview of the List View
+13. How Forms works in Jira
+14. Explaining Jirda Issue navigator
+15. Creating Our First Goal in Jira
+16. Daily Workflow of managing project
+
+
+
+1. First steps in Jira
+======================
+Register and start with Jira software - https://home.atlassian.com
+
+
+
+2. Jira Menus, UI and basics
+============================
+
+
+Dashboards
+----------
+Dashboards are under 'Filters' menu. Dashboards can be used for one or multiple teams to show whatever information of the project is needed.
+
+
+Teams
+-----
+Teams tab is like separate room for person participation. 
+	- If we are the administrator, we can choose who is invited and accept or reject other members invitations.
+	- Team members increase can increase billings.
+
+Apps
+----
+Additional apps can be useful if we are familiar with some of them.
+	- Easy Agile Team Rhythm - User Story Map & Retrospectives
+
+
+Create 
+------
+Create different work items or artifacts
+
+
+Search field
+------------
+Search for anything in Jira - very powerful tool
+
+
+
+
+3. Team-Managed Projects vs Company-Managed Projects
+====================================================
+
+Team-Managed Projects
+---------------------
+You don't need any special permissions to create a team-managed project. Also Jira administrator can control who can create team-managed projects.
+
+
+	Team-Managed Project A						Team-Managed Project B
+		   |								   |
+	   -----------------						   ------------------
+	   |		   |						   |		    |
+	Status		Issue Type					Status		Issue Type
+	   |		   |						   |		    |
+   To Do---|		   |----Epic			In Testing---------|  		    |---Task		
+In Progress|		   |----Story			Re-Test Required---|		    |---New Feature
+    Done---|  		   |----Bug			Passed QA----------|  		    |---Change Request
+	   
+
+Entities in Projects A and B can be changed for the Project specific needs - Issue Types and Status. The entities live only in the team-managed projects - project scope netities.
+
+
+
+Company-Managed Projects
+------------------------
+Company managed project are using global entities. 
+
+
+			Global Entities
+				|
+		  Status-----------------Issue Type				Project A 	 Project B
+		     |			      |						|		|
+	     To Do---|			      |---Epic					|		|
+       In Progress---|			      |---Story					|		|
+	      Done---|			      |---Bug					|		|
+	In Testing---|			      |---Task					|		|
+Re-Testing Required--|			      |---New Feature   -----------------------------------------
+	Passed QA ---|			      |---Change Request
+		  ---|			      |---
+
+
+Project A and Project B cam use the same type from global Entities. When an entity is changed, it is changed in all projects that are using this entity. This suggest that we are using company managed project if the project is very similar to already created projects that using the same entities.
+
+
+
+
+4. Create a Team-Managed Project
+================================
+When we are not logged in as administrator, we can still create a Team-Managed Projects.
+
+We can create project from Jira Menu tab: 'Projects/Create Project'. We can choose different templates to start our project.
+- Different templates can be free to use or on trail period. 
+
+Free Trials templates
+---------------------
+The difference is When we choose the template we can see the button 'Try this template' or 'Use this template'. 
+Message 'Try this template' means that the template is not free and can have some restrictions (Example template Service Management/IT service management). We can see under the header of the template that there is a product - 'Jira Service Management - TRY/PREMIUM' with special character.
+
+
+Step 1: Choose template
+We can use free project template - Software development/Kanban 
+- Click 'Use template' to proceed.
+
+Step 2: Choose between Team-managed Project or Company-managed project
+- If we are not logged as administrator, we cannot create Company-Managed Project
+- We cannot change the type of the project later. If we want to set a Company-Managed Project, we need to create new project.
+- Choose Team-Managed Project
+
+Step 3: Set Project details
+- Set Project Name: Podcast Mobile App Development
+- Set Project Key: APP
+Key explanation:
+	- if our project key is 'DEV', the issues are going to be created with names DEV-1, DEV-2,DEV3, etc. Also the URLs of the issues are going to be as DEV-2126, DEV-4214 etc.
+	- Key must be unique
+- Set Project permissions - Open - Free
+
+- Press 'Craete' button
+
+Step 3: Invite Team members
+	- Skip this step
+
+Step 4: Connect Your Work
+	- BitBucket
+	- Confluence
+- click 'Continue' to skip this step also
+
+We have now new Project created.
+
+
+
+Navigating Team-Mnaged Project
+==============================
+
+Create Issue in TO DO section named 'Design app logo and splash screen for iOS and Android'.
+
+Most of the tools we will use are in the Planning Menu:
+
+Timeline
+--------
+This is gantt view of the project.
+
+Claendar
+--------
+Jira do NOT require every issue to have date associated with it.
+
+List
+----
+List all issues in the project. It is very easy t find specific issue on this view.
+
+Form
+----
+Easy way to request specific information for specific topiv from a team member with customized form.
+
+Goals
+-----
+Descripsion of the goals of the project. Important point of the view of everyone of the team members.
+
+All work (issues)
+-----------------
+?!? If date is not assigned to an issue, the issue will not appear in this view.
+This view is one of the main views we will work on.
+
+Code
+----
+We can connect Repository.
+
+Pages
+-----
+We can connect Confluence pages/templates.
+
+Shortcuts
+---------
+We can use this page for team e-mail and other.
+
+
+
+5. Creating issues in Team-Managed Project
+==========================================
+There a few ways to create an issue:
+- Create button/Epic or Task. 
+- Shortcut - 'C'
+
+Main fields:
+------------
+Project - when we change the project, issue types (entities) are also changed.
+Issue Type - Epic/Task
+	- We can create custom issue types for this project
+Summary - we need to fill the summary/short description of the issue
+	- set 'Create podcast playlist feature to allow users to queue episodes'
+Reporter - automatically assigns the creator of the issue
+
+- click 'Create' button
+
+Additional fields in create issue form
+	- whatcher - we can add team members to receive notifications
+	- Configure fields - we can customize fields to this entity
+
+
+
+6. Adding Our Team to a Team-Managed Project
+============================================
+Project Settings/Access
+
+- Add people
+	- We can manage team members access rights but is requires Standart Jira Plan - paid $25 a month
+	- We can also set specific rights for each member - paid $25 a month
+
+
+
+7. Customizing The Issue Types in Our Team-Managed Project
+==========================================================
+We can add Story as work type
+	- Project settings/Work types/Add work type/Story
+
+We can then customize the fields for every work type
+
+Create new Work Type
+--------------------
+We can add issue types under Project settings/Work types/Add work type/Create work type
+- name: New Feature
+- Description: Add in requests for new features in the app
+- Create
+
+We can add custom field
+	- Create a field
+	- Drag and drop 'Dropdown'
+
+	- set name: Feature Location
+	- Options: 
+		- Now Playing Screen
+		- Podcast Page
+		- Settings Page			Set as as default	// If this option is disabled we force user to choose
+		- Discover Screen
+		- Playlist
+	- We can set the field as 'Required'
+
+	- save changes
+
+Test creation of the New Feature work itemc
+
+	- description: The awesome feature
+	- create
+
+
+
+8. Configuring the Agile Board
+==============================
+We have created several more work items and New Features
+
+On the right side we can filter the work items by team meber and type.
+On the left side 
+	- we can filter by group. This option creates a group list for each Assignee or Subtask
+	- we can also configure new custom filters and manage existing fiters
+		- manage Custom Filters
+			Name: New Feature
+			Filter query: issuetype = "New Feature"
+			Create
+		- now on the board we have custom filter - New Feature
+
+We manage columns on the board. Status is different than the column name 
+On the right side we can access 'Configure Board' menu and manage columns and their status settings.
+	- add column 'Review' and move it before 'Done'
+
+We can drag and drop different work items in every column. In the work items the status will change depending on the column the item is.
+
+We can Mangage Workflow. 
+	- We can set when work item is created to go directly to 'In Progress' column.
+	- We can set different dependencies 
+	- We can set different statuses in one column
+
+
+
+9. Changin fron Kanban to Scrum with Features
+=============================================
+Depending on the template we created our project we have avalable different features:
+	- We can see our active featuresin Project Settings/Features
+	- We can activate different features to use SCRUM framework
+		- Backlog
+		- Sprints
+		- Estimation / Time or Story Points
+
+	Estimation Example Story Points
+	-------------------------------
+
+	If we want to estimate only by time we cannot be sure about all varibles:
+		- Build podcast playback functionality: 6 hours
+		- QA - 1 hour
+		- External client verification - ??		// not sure for external factor
+
+	Story points are point from the story as whole - 40/100 or 100/1000 etc.
+
+
+Now we have Backlog and Sprints Board
+-------------------------------------
+Disable Sprints Feature to continue with standard board and Timeline Feature 
+
+
+
+10. Timeline view in a Team-Managed Project
+===========================================
+Create few Epics in the Timeline tab
+	- Podcast Playback and Controls
+	- Podcast Discovery and Recommendations
+	- Offline Listening and Downloads
+
+We can create Child item with the '+' sign when we hover over the Epic item
+Podcast Playback and Controls:
+	- Story - Playback, pause and stop controls
+	- Story - Add button for Skip Foeward
+	- Story - Build the core audio player
+	- Story - Integrate sleep timer
+	- Story - Review other podcasts
+
+Podcast Discovery and Recommendations:
+	- Story - Develop folder for podcasts
+	- story - Implement personalized recommendations
+	- story - Create a trendings
+
+Offline Listening and Downloads:
+	- story - Allow users to download podcasts
+	- story - Create a download folder
+	- story - Add storage management
+	- story - Notify User when download is complete
+
+We can drag and drop Epics in different weeks or months, expand and shrink timescope of every Epic.
+	- We can manage timescope of every story in every Epic.
+
+We can customize all Items in color.
+
+When some Story is 'Done' there is a bar that filling the Epic status
+
+
+
+11. Working with the Calendar 
+=============================
+We will see ONLY work items associated with dates.
+We can use filters on the top of the tab
+
+
+
+12. Overview of the List View
+=============================
+We can use filters on top of the page. It looks like Excel.
+On the right we can set Format rules
+	- Add rule: Assignee/Is/Unassign with color Yellow
+	- Save Rule
+	- now all unassigned work items are with yellow background
+
+	We can add columns if the filters are based on now shown work item parameter
+
+In the List View We can share items with other team members.
+
+
+
+13. How Forms works in Jira
+===========================
+We can create Blank Form and choose the issue type we are going to use the form for.
+	- Blank Form/New Feature
+
+- set Header: Podcast app ideas
+- set Descripton: Answer will be written here
+- manage fields, set different fields or create new field for this form
+
+	- rename Summary to Short Description
+	- rename Description to Long Description
+	- rename Attachments to Screenshots
+		- description: Can you screenshot the feature?
+
+We can Preview and/or share this Form. 
+We have to give permissions to members to use the form. There are two ways to do so:
+	- Project Settings/Access/Open(for everyone in Jira) or Limited(for team members only), Limited is by Default
+	- In the Form tab / lock button on every form template
+
+
+Usage 
+-----
+Open the form and use it in Preview mode. Fill the form and share it.
+	- Shoert Description: Archiving episodes
+	- Drop a screenshot
+	- Long Description: In Pocket Casts, I like being able to archive an episode in case I heard it elsewere
+	- Feature Location: Podcast Library
+	- Submit
+
+Now this form will appear in All Work (issues) tab. Also Jira set work item field 'label: Form' automatically.
+
+
+
+14. Explaining Jirda Issue navigator
+====================================
+
+In 'All Work' tab we can select any item and on the right side will appear item navigator. We can perform any changes connected with the selected issue/item.
+
+We have Hystory, comments and Work log to see what and who changed parameters for each issue/item.
+On work log we can set commited time spent for the issue/item.
+
+If we are administrator we can add or crete fields for each issue/item from the navigator section. We can pin fields to appear in any other isses/items in the project.
+
+
+
+15. Creating Our First Goal in Jira
+===================================
+Goals tab is place we can see the bigger picture and to see how the work is helping to hit that goal.
+Goals must be enabled in 'Atlassian Home' Page.
+Atlassian Home is separate platform from Jira! It is different space with unique Projects that are not connected with Jira.
+
+From the Left side Menu, navigate  to Goals tab.
+
+Create your first goal
+	- name: Publish the Podcast App in the App Store
+	- date: December
+	- create
+
+We can now link different issues/wotk items from different project to achieve the Goals we have.
+- go to Atlassian home/Goals/Jira and link Epic or Story URL to this goal. 
+
+
+
+16. Daily Workflow of managing project
+======================================
+
+Stand UP in the morning
+-----------------------
+This functionality is implemented for easy meeting management. It has included timer. We set few minutes for every member to answer these 3 questions:
+	- What did you d oyesterday?
+	- What will you do today?
+	- Are there any blockers preventing progress?
+
+Drag and drop work items to different board columns.
+
+Set blocked status on work item
+-------------------------------
+We can edit work items in the 'In Progress' column and link other issues that are blocking the work over this one.
+	- Work item/Link work item
+		- Select link type: os blocked by
+		- Select work item: blocking item
+		- Link
+
+Set Flag to pull attention to specific work item/issue
+------------------------------------------------------
+	- Work item/Flag/Set message - 'Blocked, lets discuss on the next stand up'
+Now the work item will be in different color and will draw attention
+	
+On the right side menu we can open Board Insights and see information about different work items/issues
+
+
+
+
+
+
+
+
+
+
+
+

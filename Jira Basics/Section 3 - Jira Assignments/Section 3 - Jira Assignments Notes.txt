@@ -1,0 +1,13 @@
+Assignment 1 - Create Product Roadmap, Release Plan and Story Map using Jira tool.
+==================================================================================
+Use document 'Agile+Scrum+using+Jira+Assignment.docx'. Use 'Assignment_1_Key.docx' as example.
+
+
+Assignment 2 - Create Product Backlog, Epics, Stories and Estimates in Jira Tool
+================================================================================
+Use document 'Agile+Scrum+using+Jira+Assignment.docx'. Use 'Assignment_2_Key.docx' as example.
+
+
+Assignment 3 - Create Sprints, Reports and Dashboards using Jira Tool
+=====================================================================
+Use document 'Agile+Scrum+using+Jira+Assignment.docx'. Use 'Assignment_3_Key.docx' as example.
