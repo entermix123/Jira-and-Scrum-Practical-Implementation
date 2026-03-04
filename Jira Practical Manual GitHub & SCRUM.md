@@ -4,7 +4,7 @@
 - 1 [Introduction](#1-introduction)
 - 2 [Getting Started With Jira](#2-getting-started-with-jira)
 - 3 [Project Board & Settings](#3-project-board--settings)
-- 4 [Jira Issues](#4-jira-issues)
+- 4 [Jira List](#4-jira-list)
 - 5 [Issue Navigator](#5-issue-navigator)
 - 6 [Epic & Roadmap](#6-epic--roadmap)
 - 7 [Issue Types](#7-issue-types)
