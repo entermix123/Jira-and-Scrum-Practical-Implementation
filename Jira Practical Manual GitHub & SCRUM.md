@@ -7,7 +7,7 @@
 - 4 [Jira List](#4-jira-list)
 - 5 [Issue Navigator](#5-issue-navigator)
 - 6 [Epic & Roadmap](#6-epic--roadmap)
-- 7 [Issue Types](#7-issue-types)
+- 7 [Work Types](#7-work-types)
 - 8 [Jira Query Language JQL](#8-jira-query-language-jql)
 - 9 [Start Sprint](#9-start-sprint)
 - 10 [Sprint Execution 1](#10-sprint-execution-1)
